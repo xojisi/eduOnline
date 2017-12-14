@@ -29,7 +29,7 @@ class EmailVerifyRecord(models.Model):
     email = models.EmailField(max_length=50,verbose_name=u"邮箱")
     send_type = models.CharField(choices=(("register",u"注册"),("forget",u"找回密码")),max_length=10)
     # 如果此处用datetime.now(),那么时间是该处实例化的时间!
-    send_time = models.DateTimeField(default=datetime.now)
+    send_time = models.DateTimeField(default=datetime.now,verbose_name=u"发送时间")
 
     class Meta:
         verbose_name = u"邮箱验证码"
