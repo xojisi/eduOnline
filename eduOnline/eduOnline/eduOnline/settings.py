@@ -32,6 +32,17 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+'''
+Django中对用户的验证都是通过自身的模块，也可以使用其他的模块。
+默认的AUTHENTICATION_BACKENDS 是
+('django.contrib.auth.backends.ModelBackend',)
+我们可以自己写一个不同的用户验证方式，但必须具有get_user 和authenticate方法
+转自：http://maplye.iteye.com/blog/448960
+'''
+AUTHENTICATION_BACKENDS = (
+    'users.views.CustomBackend',
+)
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
