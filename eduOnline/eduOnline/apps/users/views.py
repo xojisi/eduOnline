@@ -7,8 +7,8 @@ from django.views.generic.base import View
 from django.contrib.auth.hashers import make_password
 import json
 
-from .models import UserProfile
-from .form import LoginForm,RegisterForm
+from .models import UserProfile,EmailVerifyRecord
+from .form import LoginForm,RegisterForm,ForgetForm,ModifyPwdForm
 from untils.email_send import send_register_eamil
 
 # Create your views here.
@@ -23,6 +23,7 @@ class CustomBackend(ModelBackend):
         except Exception as e:
             return None
 
+# 登录
 class LoginView(View):
     def get(self,request):
         return render(request, "login.html", {})
@@ -35,52 +36,122 @@ class LoginView(View):
             pass_word = request.POST.get("password","")
             user = authenticate(username=user_name, password=pass_word)
             if user is not None:
-                login(request, user)
-                return render(request,"index.html")
+                if user.is_active:
+                    login(request, user)
+                    return render(request,"index.html")
+                else:
+                    return render(request, "login.html", {"msg": "用户未激活"})
             else:
                 return render(request, "login.html",{"msg":"账户或密码错误"})
         else:
             return render(request, "login.html",{"login_form":login_form})
 
-# 基于函数的登录
-# def user_login(request):
-#     if request.method == "POST":
-#         user_name = request.POST.get("username","")
-#         pass_word = request.POST.get("password","")
-#         user = authenticate(username=user_name, password=pass_word)
-#         if user is not None:
-#             login(request, user)
-#             print("index")
-#             return render(request,"index.html")
-#         else:
-#             print("login")
-#             return render(request, "login.html",{"msg":u"用户名或密码错误"})
-#     elif request.method == "GET":
-#         print("GET")
-#         return render(request,"login.html",{})
 
+# 邮箱注册
 class RegisterView(View):
     def get(self,request):
         register_form = RegisterForm()
         return render(request,"register.html",{'register_form':register_form})
 
     def post(self,request):
-        print request.POST
         register_form = RegisterForm(request.POST)
         if register_form.is_valid():
+            try:
+                Input_email = register_form.cleaned_data['email']
+            except Exception as e :
+                Input_email = ''
+            try:
+                Input_password = register_form.cleaned_data['password']
+            except Exception as e :
+                Input_password = ''
+
             user_name = request.POST.get("email","")
+            if UserProfile.objects.filter(email=user_name):
+                msg = "用户已经存在"
+                return render(request, "register.html", locals())
             pass_word = request.POST.get("password","")
             user_profile = UserProfile()
             user_profile.username = user_name
             user_profile.email = user_name
+            user_profile.is_active = False
             user_profile.password = make_password(pass_word)
             user_profile.save()
 
+            # 放送邮件
             send_register_eamil(user_name,"register")
             return render(request, "login.html")
         else:
             errors_list = {}
-            error = json.loads(register_form.errors.as_json())
-            for key,value in error.items():
+            transform = json.loads(register_form.errors.as_json())
+            for key,value in transform.items():
                 errors_list[key] = value[0]['message']
-            return render(request, "register.html", {"register_from":register_form,"errors_list":errors_list})
+
+            try:
+                Input_email = register_form.cleaned_data['email']
+            except Exception as e :
+                Input_email = ''
+            try:
+                Input_password = register_form.cleaned_data['password']
+            except Exception as e :
+                Input_password = ''
+
+            return render(request, "register.html", locals())
+
+# 帐号激活
+class ActiveUserView(View):
+    def get(self, request ,active_code):
+        all_records = EmailVerifyRecord.objects.filter(code=active_code)
+        if all_records:
+            for record in all_records:
+                email = record.email
+                user = UserProfile.objects.get(email=email)
+                user.is_active = True
+                user.save()
+        else:
+            return render(request,"active_fail.html")
+        return render(request, "login.html")
+
+# 忘记密码
+class ForgetPWdView(View):
+    def get(self,request):
+        forget_form = ForgetForm()
+        return render(request,"forgetpwd.html" ,{"forget_form":forget_form})
+
+    def post(self,request):
+        forget_form = ForgetForm(request.POST)
+        if forget_form.is_valid():
+            email = request.POST.get("email","")
+            send_register_eamil(email, "forget")
+            return render(request, "send_success.html")
+        else:
+            return render(request, "forgetpwd.html", {"forget_form": forget_form})
+
+
+class ResetView(View):
+    def get(self, request ,active_code):
+        all_records = EmailVerifyRecord.objects.filter(code=active_code)
+        if all_records:
+            for record in all_records:
+                email = record.email
+                return render(request, "password_reset.html",{"email": email})
+        else:
+            return render(request,"active_fail.html")
+
+
+
+class ModifyPwdView(View):
+    def post(self, request):
+        modify_form = ModifyPwdForm(request.POST)
+        email = request.POST.get("email", "")
+        if modify_form.is_valid():
+            pwd1 = request.POST.get("password1","")
+            pwd2 = request.POST.get("password2","")
+
+            if pwd1 != pwd2:
+                return render(request, "password_reset.html", {"email": email,"msg":"密码不一致"})
+            user = UserProfile.objects.get(email=email)
+            user.password = make_password(pwd1)
+            user.save()
+            return render(request,"login.html")
+        else:
+            return render(request, "password_reset.html", {"email": email,"modify_form":modify_form})
