@@ -5,9 +5,11 @@ from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
 from django.views.generic.base import View
 from django.contrib.auth.hashers import make_password
+import json
 
 from .models import UserProfile
 from .form import LoginForm,RegisterForm
+from untils.email_send import send_register_eamil
 
 # Create your views here.
 
@@ -25,6 +27,7 @@ class LoginView(View):
     def get(self,request):
         return render(request, "login.html", {})
     def post(self,request):
+        print request.POST
         login_form = LoginForm(request.POST)
         # form验证
         if login_form.is_valid():
@@ -62,13 +65,22 @@ class RegisterView(View):
         return render(request,"register.html",{'register_form':register_form})
 
     def post(self,request):
+        print request.POST
         register_form = RegisterForm(request.POST)
         if register_form.is_valid():
-            user_name =request.POST.get("username","")
+            user_name = request.POST.get("email","")
             pass_word = request.POST.get("password","")
             user_profile = UserProfile()
             user_profile.username = user_name
             user_profile.email = user_name
             user_profile.password = make_password(pass_word)
             user_profile.save()
-            pass
+
+            send_register_eamil(user_name,"register")
+            return render(request, "login.html")
+        else:
+            errors_list = {}
+            error = json.loads(register_form.errors.as_json())
+            for key,value in error.items():
+                errors_list[key] = value[0]['message']
+            return render(request, "register.html", {"register_from":register_form,"errors_list":errors_list})

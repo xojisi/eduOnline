@@ -88,7 +88,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                # 'eduOnline.views.global_setting',
             ],
         },
     },
@@ -156,9 +155,9 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-EMAIL_HOST = "smtp.qq.com"
+EMAIL_HOST = "smtp.sina.com"
 EMAIL_PORT = 25
-EMAIL_HOST_USER = "271398289@qq.com"
-EMAIL_HOST_PASSWORD = 'jfhqvkauglwmcadf'
+EMAIL_HOST_USER = "xojisi@sina.com"
+EMAIL_HOST_PASSWORD = 'admin123'
 EMAIL_USE_TLS = False
-EMAIL_FROM = '271398289@qq.com'
+EMAIL_FROM = 'xojisi@sina.com'
