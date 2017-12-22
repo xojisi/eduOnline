@@ -6,6 +6,7 @@ from django.db.models import Q
 from django.views.generic.base import View
 from django.contrib.auth.hashers import make_password
 import json
+from datetime import datetime,timedelta
 
 from .models import UserProfile,EmailVerifyRecord
 from .form import LoginForm,RegisterForm,ForgetForm,ModifyPwdForm
@@ -121,22 +122,30 @@ class ForgetPWdView(View):
         forget_form = ForgetForm(request.POST)
         if forget_form.is_valid():
             email = request.POST.get("email","")
-            send_register_eamil(email, "forget")
-            return render(request, "send_success.html")
+            if EmailVerifyRecord.objects.filter(email=email):
+                send_register_eamil(email, "forget")
+                return render(request, "send_success.html")
+            else:
+                return render(request, "forgetpwd.html", {"forget_form": forget_form,"msg":"用户不存在"})
         else:
             return render(request, "forgetpwd.html", {"forget_form": forget_form})
 
 
 class ResetView(View):
     def get(self, request ,active_code):
-        all_records = EmailVerifyRecord.objects.filter(code=active_code)
-        if all_records:
-            for record in all_records:
+        try:
+            record = EmailVerifyRecord.objects.get(code=active_code)
+            if record:
                 email = record.email
-                return render(request, "password_reset.html",{"email": email})
-        else:
-            return render(request,"active_fail.html")
-
+                # 邮箱验证码有限时间判断
+                if record.send_time + timedelta(hours=2) > datetime.now():
+                    return render(request, "password_reset.html",{"email": email,"code":active_code})
+                else:
+                    return render(request, "active_fail.html")
+            else:
+                return render(request,"active_fail.html")
+        except:
+            return render(request, "active_fail.html")
 
 
 class ModifyPwdView(View):
@@ -152,6 +161,11 @@ class ModifyPwdView(View):
             user = UserProfile.objects.get(email=email)
             user.password = make_password(pwd1)
             user.save()
+            # 修改密码后链接时失效
+            code = request.POST.get("code", "")
+            EmailVerifyRecord.objects.filter(code=code).delete()
+
+
             return render(request,"login.html")
         else:
             return render(request, "password_reset.html", {"email": email,"modify_form":modify_form})
