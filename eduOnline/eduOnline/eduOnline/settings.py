@@ -88,6 +88,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # 给所有的html页面传sittings.py里面的MEDIA_URL
+                'django.core.context_processors.media',
             ],
         },
     },
@@ -161,3 +163,6 @@ EMAIL_HOST_USER = "xojisi@sina.com"
 EMAIL_HOST_PASSWORD = 'admin123'
 EMAIL_USE_TLS = False
 EMAIL_FROM = 'xojisi@sina.com'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT= os.path.join(BASE_DIR, 'media')

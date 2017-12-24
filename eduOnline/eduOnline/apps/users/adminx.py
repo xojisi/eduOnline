@@ -37,8 +37,8 @@ class GlobalSettings(object):
                 {'title': '课程', 'url': self.get_model_url(CourseResource, 'changelist')},
             )},
             {'title': '机构管理', 'menus': (
-                {'title': '机构', 'url': self.get_model_url(CityDict, 'changelist')},
-                {'title': '城市', 'url': self.get_model_url(CourseOrg, 'changelist')},
+                {'title': '城市', 'url': self.get_model_url(CityDict, 'changelist')},
+                {'title': '机构', 'url': self.get_model_url(CourseOrg, 'changelist')},
                 {'title': '教师', 'url': self.get_model_url(Teacher, 'changelist')},
             )},
             {'title': '用户操作', 'menus': (

@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 """eduOnline URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -17,9 +18,12 @@ Including another URLconf
 from django.conf.urls import url,include
 from django.contrib import admin
 from django.views.generic import TemplateView
+from django.views.static import serve
 import xadmin
 
 from users.views import LoginView,RegisterView,ActiveUserView,ForgetPWdView,ResetView,ModifyPwdView
+from organization.views import OrgView
+from .settings import MEDIA_ROOT
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
@@ -31,4 +35,10 @@ urlpatterns = [
     url(r'^forget/$', ForgetPWdView.as_view(), name="forget_pwd"),
     url(r'^reset/(?P<active_code>.*)/$', ResetView.as_view(), name="reset_pwd"),
     url(r'^modify/$', ModifyPwdView.as_view(), name="modify_pwd"),
+
+    #课程机构首页
+    url(r'^org_list/$', OrgView.as_view(), name="org_list"),
+
+    #配置上传文件的访问处理函数
+    url(r'^media/(?P<path>.*)$', serve, {"document_root":MEDIA_ROOT})
 ]
