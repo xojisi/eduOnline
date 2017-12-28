@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 from __future__ import unicode_literals
 from datetime import datetime
+from pure_pagination import Paginator, PageNotAnInteger
 
 from django.db import models
 from organization.models import CourseOrg
