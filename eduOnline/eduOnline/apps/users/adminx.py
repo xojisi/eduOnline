@@ -43,10 +43,10 @@ class GlobalSettings(object):
             )},
             {'title': '用户操作', 'menus': (
                 {'title': '用户咨询', 'url': self.get_model_url(UserAsk, 'changelist')},
-                {'title': '用户课程', 'url': self.get_model_url(CourseComments, 'changelist')},
-                {'title': '用户消息', 'url': self.get_model_url(UserFavorite, 'changelist')},
-                {'title': '课程评论', 'url': self.get_model_url(UserMessage, 'changelist')},
-                {'title': '用户收藏', 'url': self.get_model_url(UserCourse, 'changelist')},
+                {'title': '用户课程', 'url': self.get_model_url(UserCourse, 'changelist')},
+                {'title': '用户消息', 'url': self.get_model_url(UserMessage, 'changelist')},
+                {'title': '课程评论', 'url': self.get_model_url(CourseComments, 'changelist')},
+                {'title': '用户收藏', 'url': self.get_model_url(UserFavorite, 'changelist')},
 
             )},
         )

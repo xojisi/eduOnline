@@ -14,7 +14,7 @@ class OrgView(View):
     def get(self,request):
         # 课程机构
         all_orgs = CourseOrg.objects.all()
-        hot_orgs = all_orgs.order_by("-click_num")[:3]
+        hot_orgs = all_orgs.order_by("-click_nums")[:3]
         # 城市
         all_citys = CityDict.objects.all()
 

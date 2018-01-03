@@ -139,7 +139,7 @@ function add_fav(current_elem, fav_id, fav_type){
             console.log(current_elem)
             if(data.status == 'fail'){
                 if(data.msg == '用户未登录'){
-                    window.location.href="/login/";
+                    window.location.href="{% url 'login' %}";
                 }else{
                     current_elem.text('收藏')
                 }
