@@ -49,7 +49,7 @@
                             <a style="color:white" class="fr loginbtn" href="{% url 'login' %}">登录</a>
                     {% endif %}
 			</div>
-
+    </div>
 
     <div class="middle companyheader">
         <div class="wp">
@@ -135,8 +135,6 @@ function add_fav(current_elem, fav_id, fav_type){
             xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
         },
         success: function(data) {
-            console.log(data)
-            console.log(current_elem)
             if(data.status == 'fail'){
                 if(data.msg == '用户未登录'){
                     window.location.href="{% url 'login' %}";

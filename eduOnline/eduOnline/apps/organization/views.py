@@ -127,7 +127,6 @@ class OrgTeacherView(View):
             "has_fav": has_fav
         })
 
-
 # 判断机构是否收藏
 def HasFav(id,request):
     if request.user.is_authenticated():
@@ -143,6 +142,7 @@ class AddFavView(View):
     def post(self,request):
         fav_id = request.POST.get("fav_id",0)
         fav_type = request.POST.get("fav_type",0)
+        print('running')
 
         # 判断用户登录状态d
         if not request.user.is_authenticated():
