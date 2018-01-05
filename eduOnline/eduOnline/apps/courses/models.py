@@ -4,7 +4,7 @@ from datetime import datetime
 from pure_pagination import Paginator, PageNotAnInteger
 
 from django.db import models
-from organization.models import CourseOrg
+from organization.models import CourseOrg, Teacher
 # Create your models here.
 
 
@@ -22,6 +22,9 @@ class Course(models.Model):
     add_time = models.DateTimeField(default=datetime.now,verbose_name=u"添加时间")
     category = models.CharField(verbose_name=u"课程类别", max_length=20 ,default=u"后端开发")
     tag = models.CharField(default='', verbose_name=u"课程标签", max_length=10)
+    teacher = models.ForeignKey(Teacher, verbose_name=u"讲师", null=True, blank=True)
+    you_need_know = models.CharField(max_length=300, verbose_name=u"课程描述", default='')
+    teacher_tell = models.CharField(max_length=300, verbose_name=u"老师告诉你", default='')
 
     class Meta:
         verbose_name = u"课程"
@@ -51,6 +54,10 @@ class Lesson(models.Model):
         verbose_name = u"章节"
         verbose_name_plural = verbose_name
 
+    # 获取章节视频
+    def get_lesson_video(self):
+        return self.video_set.all()
+
     def __unicode__(self):
         return self.name
 
@@ -60,6 +67,7 @@ class Video(models.Model):
     name = models.CharField(max_length=100,verbose_name=u"视频名")
     add_time = models.DateTimeField(default=datetime.now,verbose_name=u"添加时间")
     url = models.CharField(max_length=200, default='', verbose_name=u"访问地址")
+    learn_times = models.IntegerField(default=0,verbose_name=u"视频时长(分钟)")
 
     class Meta:
         verbose_name = u"视频"
