@@ -10,7 +10,7 @@ from datetime import datetime,timedelta
 
 from .models import UserProfile,EmailVerifyRecord
 from .form import LoginForm,RegisterForm,ForgetForm,ModifyPwdForm
-from untils.email_send import send_register_eamil
+from utils.email_send import send_register_eamil
 
 # Create your views here.
 

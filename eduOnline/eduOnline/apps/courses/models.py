@@ -87,3 +87,5 @@ class CourseResource(models.Model):
         verbose_name = u"课程资源"
         verbose_name_plural = verbose_name
 
+
+
