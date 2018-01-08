@@ -2,6 +2,7 @@
 from django.shortcuts import render
 from django.views.generic import View
 from django.http import HttpResponse
+from django.db.models import Q
 from pure_pagination import Paginator, PageNotAnInteger
 
 
@@ -91,8 +92,9 @@ class CourseInfoView(LoginRequiredMixin, View):
         # 取出所有课程id
         course_ids = [user_course.course.id for user_course in all_user_courses]
         # 获取学过该用户学过其他的所有课程
-        relate_courses = Course.objects.filter(id__in=course_ids).order_by("-click_nums")
+        relate_courses = Course.objects.filter(id__in=course_ids).filter(~Q(id=course_id)).order_by("-click_nums")[:5]
         all_resources = CourseResource.objects.filter(course=course)
+        print relate_courses
 
         return render(request, "course-video.html", {
             "course": course,
@@ -109,7 +111,7 @@ class CourseCommentsView(LoginRequiredMixin, View):
         user_ids = [user_course.user.id for user_course in user_courses]
         all_user_courses = UserCourse.objects.filter(user_id__in=user_ids)
         course_ids = [user_course.course.id for user_course in all_user_courses]
-        relate_courses = Course.objects.filter(id__in=course_ids).order_by("-click_nums")[:5]
+        relate_courses = Course.objects.filter(id__in=course_ids).filter(~Q(id=course_id)).order_by("-click_nums")[:5]
 
         all_resources = CourseResource.objects.filter(course=course)
         all_comments = CourseComments.objects.filter(course_id=course_id)
@@ -158,12 +160,12 @@ class VideoPlayView(View):
         # 取出所有课程id
         course_ids = [user_course.course.id for user_course in all_user_courses]
         # 获取学过该用户学过其他的所有课程
-        relate_courses = Course.objects.filter(id__in=course_ids).order_by("-click_nums")
+        relate_courses = Course.objects.filter(id__in=course_ids).filter(~Q(id=course.id)).order_by("-click_nums")[:5]
         all_resources = CourseResource.objects.filter(course=course)
 
         return render(request, "course-play.html", {
             "course": course,
-            "course_resources":all_resources,
+            "course_resources": all_resources,
             "relate_courses": relate_courses,
             "video": video
         })

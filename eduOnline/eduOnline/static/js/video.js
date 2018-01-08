@@ -20430,7 +20430,7 @@ module.exports = exports['default'];
 });
 
 
-//# sourceMappingURL=video.js.map
+
 /* vtt.js - v0.12.1 (https://github.com/mozilla/vtt.js) built on 08-07-2015 */
 
 (function(root) {

@@ -18,7 +18,7 @@ class CityDictAdmin(object):
 
 class TeacherAdmin(object):
     list_display = ['org', 'name', 'work_years','work_company']
-    search_fields = ['org','name', 'work_years','work_company']
+    search_fields = ['org__name','name', 'work_years','work_company']
     list_filter = ['org__name', 'name', 'work_years','work_company']
 
 
