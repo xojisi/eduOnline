@@ -45,7 +45,7 @@ urlpatterns = [
     url(r'^media/(?P<path>.*)$', serve, {"document_root":MEDIA_ROOT}),
 
     # 课程相关URL配置
-    url(r'^user/', include('users.urls', namespace="users")),
+    url(r'^users/', include('users.urls', namespace="users")),
 
 
 ]
