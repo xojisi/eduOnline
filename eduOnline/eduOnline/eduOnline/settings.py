@@ -163,7 +163,7 @@ EMAIL_PORT = 25
 EMAIL_HOST_USER = "" # 请输入自己的邮箱帐号
 EMAIL_HOST_PASSWORD = ''  # 请输入自己的邮箱密码
 EMAIL_USE_TLS = False
-EMAIL_FROM = 'xojisi@sina.com'
+EMAIL_FROM = ''
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
