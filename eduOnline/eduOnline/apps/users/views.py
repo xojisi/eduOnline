@@ -10,7 +10,8 @@ from datetime import datetime,timedelta
 from django.http import HttpResponse
 
 from .models import UserProfile,EmailVerifyRecord
-from .form import LoginForm,RegisterForm,ForgetForm,ModifyPwdForm, UploadImageForm
+from .form import LoginForm, RegisterForm, ForgetForm, ModifyPwdForm
+from .form import UploadImageForm, UserInfoForm
 from utils.email_send import send_register_email
 from utils.mixin_utils import LoginRequiredMixin
 
@@ -175,8 +176,16 @@ class ModifyPwdView(View):
 # 用户个人信息
 class UserInfoView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, "usercenter-info.html", {
-        })
+        return render(request, "usercenter-info.html", {})
+
+    def post(self,request):
+        user_info_form = UserInfoForm(request.POST, instance=request.user)
+        if user_info_form.is_valid():
+            user_info_form.save()
+            return HttpResponse('{"status":"success"}', content_type="application/json")
+        else:
+            return HttpResponse(json.dumps(user_info_form.errors), content_type="application/json")
+
 
 # 用户修改头像
 class UploadImageView(LoginRequiredMixin, View):
