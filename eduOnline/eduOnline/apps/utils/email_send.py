@@ -17,9 +17,12 @@ def random_str(randomlength=8):
     return Str
 
 
-def send_register_eamil(email, send_type="register"):
+def send_register_email(email, send_type="register"):
     email_record = EmailVerifyRecord()
-    code = random_str(16)
+    if send_type == "update_email":
+        code = random_str(6)
+    else:
+        code = random_str(16)
     email_record.code = code
     email_record.email = email
     email_record.send_type = send_type
@@ -43,3 +46,12 @@ def send_register_eamil(email, send_type="register"):
         send_status = send_mail(email_title, email_body, settings.EMAIL_FROM, [email])
         if send_status:
             pass
+
+    elif send_type == "update_email":
+        email_title = "暮学在线网邮箱修改验证码"
+        email_body = "你的邮箱验证码为:{0}".format(code)
+
+        send_status = send_mail(email_title, email_body, settings.EMAIL_FROM, [email])
+        if send_status:
+            pass
+

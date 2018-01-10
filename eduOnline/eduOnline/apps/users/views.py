@@ -11,7 +11,7 @@ from django.http import HttpResponse
 
 from .models import UserProfile,EmailVerifyRecord
 from .form import LoginForm,RegisterForm,ForgetForm,ModifyPwdForm, UploadImageForm
-from utils.email_send import send_register_eamil
+from utils.email_send import send_register_email
 from utils.mixin_utils import LoginRequiredMixin
 
 # Create your views here.
@@ -80,7 +80,7 @@ class RegisterView(View):
             user_profile.save()
 
             # 放送邮件
-            send_register_eamil(user_name,"register")
+            send_register_email(user_name,"register")
             return render(request, "login.html")
         else:
             errors_list = {}
@@ -124,7 +124,7 @@ class ForgetPWdView(View):
         if forget_form.is_valid():
             email = request.POST.get("email","")
             if EmailVerifyRecord.objects.filter(email=email):
-                send_register_eamil(email, "forget")
+                send_register_email(email, "forget")
                 return render(request, "send_success.html")
             else:
                 return render(request, "forgetpwd.html", {"forget_form": forget_form,"msg":"用户不存在"})
@@ -206,3 +206,32 @@ class UpdatePwdView(LoginRequiredMixin, View):
             return HttpResponse('{"status":"success"}', content_type="application/json")
         else:
             return HttpResponse(json.dumps(modify_form.errors), content_type="application/json")
+
+# 发送邮箱验证码
+class SendEmailCodeView(LoginRequiredMixin,View):
+    def get(self,request):
+        email = request.GET.get("email","")
+
+        if UserProfile.objects.filter(email=email):
+            return HttpResponse('{"email":"邮箱已经存在"}', content_type="application/json")
+        send_register_email(email,"update_email")
+        return HttpResponse('{"status":"success"}', content_type="application/json")
+
+# 修改个人邮箱
+class UpdateEmailView(LoginRequiredMixin, View):
+    def post(self,request):
+        email = request.POST.get("email","")
+        code = request.POST.get('code',"")
+
+        existed_records = EmailVerifyRecord.objects.filter(email=email,code=code,send_type='update_email')
+        if existed_records:
+            if existed_records[0].send_time + timedelta(hours=2) > datetime.now():
+                user = request.user
+                user.email = email
+                user.username = email
+                user.save()
+                return HttpResponse('{"status":"success"}', content_type="application/json")
+            else:
+                return HttpResponse('{"email":"验证码过期"}', content_type="application/json")
+        else:
+            return HttpResponse('{"email":"验证码出错"}', content_type="application/json")

@@ -144,7 +144,7 @@
 							<input type="button" id="jsEditUserBtn" value="保存">
 						</li>
 					</ul>
-                    <input type='hidden' name='csrfmiddlewaretoken' value='799Y6iPeEDNSGvrTu3noBrO4MBLv6enY' />
+
 				</form>
 			</div>
 		</div>
@@ -223,11 +223,11 @@
                 <input class="fl email_code" type="text" id="jsChangeEmailCode" name="code" placeholder="输入邮箱验证码">
                 <input class="getcode getting" type="button" id="jsChangeEmailCodeBtn" value="获取验证码">
             </div>
-            <div class="error btns change_email_tips" id="jsChangeEmailTips" >请输入...</div>
+            <div class="error btns change_email_tips" id="jsChangeEmailTips" ></div>
             <div class="button">
                 <input class="changeemai_btn" id="jsChangeEmailBtn" type="button" value="完成"/>
             </div>
-
+            {% csrf_token %}
         </form>
     </div>
 
