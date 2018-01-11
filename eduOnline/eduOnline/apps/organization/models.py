@@ -1,7 +1,6 @@
 # -*- coding:utf-8 -*-
 from __future__ import unicode_literals
 from datetime import datetime
-
 from django.db import models
 
 # Create your models here.
@@ -58,6 +57,9 @@ class Teacher(models.Model):
     class Meta:
         verbose_name = u"教师"
         verbose_name_plural = verbose_name
+
+    def get_course_nums(self):
+        return self.course_set.all().count()
 
     def __unicode__(self):
         return self.name

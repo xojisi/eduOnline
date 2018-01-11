@@ -384,7 +384,9 @@ $(function() {
             msg_show = true;
         }
     }
-    var m = setInterval(msgFlash,500);
+
+    // 消息闪烁
+    // var m = setInterval(msgFlash,500);
 
     //顶部导航菜单
     $('.nav .arrow').mousemove(function(){
