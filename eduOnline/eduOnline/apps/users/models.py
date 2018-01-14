@@ -45,7 +45,7 @@ class EmailVerifyRecord(models.Model):
 
 
 class Banner(models.Model):
-    title = models.CharField(max_length=100,verbose_name=u"标题")
+    title = models.CharField(max_length=100,verbose_name=u"课程ID")
     image = models.ImageField(upload_to="banner/%Y/%m",verbose_name=u"轮播图",max_length=100)
     url = models.URLField(max_length=200,verbose_name=u"访问地址")
     index = models.IntegerField(default=100,verbose_name=u"顺序")
@@ -54,3 +54,6 @@ class Banner(models.Model):
     class Meta:
         verbose_name = u"轮播图"
         verbose_name_plural = verbose_name
+
+    def __unicode__(self):
+        return '轮播图'

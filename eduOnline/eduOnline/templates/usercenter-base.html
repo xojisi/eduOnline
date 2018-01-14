@@ -40,11 +40,11 @@
                                 </dl>
                                 <div class="btn">
 	                                <a class="personcenter fl" href="{% url 'users:user_info' %}">进入个人中心</a>
-	                                <a class="fr" href="/logout/">退出</a>
+	                                <a class="fr" href="{% url 'logout' %}">退出</a>
                                 </div>
                             </div>
                         </div>
-                        <a href="">
+                        <a href="{% url 'users:mymessage' %}">
                             <div class="msg-num" style="margin-right: 0px;"><span id="MsgNum">{% if request.user.unread_nums > 0 %}{{ request.user.unread_nums }}{% endif %}</span></div>
                         </a>
                         {% else %}
@@ -71,8 +71,8 @@
     <section>
         <div class="wp">
             <ul  class="crumbs">
-                <li><a href="index.html">首页</a>></li>
-                <li><a href="/user/home/">个人中心</a>></li>
+                <li><a href="{% url 'index' %}">首页</a>></li>
+                <li><a href="{% url 'users:user_info' %}">个人中心</a>></li>
                 <li>个人信息</li>
             </ul>
         </div>
@@ -112,7 +112,6 @@
                                 <input type="file" name="image" id="avatarUp" class="js-img-up"/>
                             </span>
                         </label>
-                        <input type='hidden' name='csrfmiddlewaretoken' value='799Y6iPeEDNSGvrTu3noBrO4MBLv6enY' />
                     </form>
                     <div style="border-top:1px solid #eaeaea;margin-top:30px;">
                         <a class="button btn-green btn-w100" id="jsUserResetPwd" style="margin:80px auto;width:100px;">修改密码</a>

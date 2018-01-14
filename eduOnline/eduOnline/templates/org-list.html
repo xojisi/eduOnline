@@ -52,7 +52,7 @@
                         </dt>
                         <dd>
                             <div class="clearfix">
-                                 <a href="org-detail-homepage.html">
+                                 <a href="{% url 'org:org_home' course_org.id %}">
                                      <h1>{{ course_org.name}}</h1>
                                      <div class="pic fl">
 
@@ -133,7 +133,7 @@
                     <dl class="des">
                         <dt class="num fl">{{ forloop.counter }}</dt>
                         <dd>
-                            <a href="/company/2/"><h1>{{ org.name }}</h1></a>
+                            <a href="{% url 'org:org_course' org.id %}"><h1>{{ org.name }}</h1></a>
                             <p>{{ org.address }}</p>
                         </dd>
                     </dl>

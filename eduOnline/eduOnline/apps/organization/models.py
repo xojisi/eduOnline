@@ -29,6 +29,7 @@ class CourseOrg(models.Model):
     students = models.IntegerField(default=0,verbose_name=u"学习人数")
     course_nums = models.IntegerField(default=0,verbose_name=u"课程数")
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u"添加时间")
+    tag = models.CharField(default=u"全国知名", max_length=10, verbose_name=u"机构标签")
 
     class Meta:
         verbose_name = u"课程机构"
@@ -63,3 +64,4 @@ class Teacher(models.Model):
 
     def __unicode__(self):
         return self.name
+

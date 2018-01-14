@@ -9116,3 +9116,9 @@ table .upload-btn {
     height:auto;
     left:auto;
 }
+
+.hidden-overflow {
+     overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}

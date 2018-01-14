@@ -1,14 +1,15 @@
 # -*- coding:utf-8 -*-
 from django.shortcuts import render
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login, logout
 from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
 from django.views.generic.base import View
 from django.contrib.auth.hashers import make_password
 import json
 from datetime import datetime,timedelta
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from pure_pagination import Paginator, PageNotAnInteger
+from django.core.urlresolvers import reverse
 
 from .models import UserProfile,EmailVerifyRecord
 from .form import LoginForm, RegisterForm, ForgetForm, ModifyPwdForm
@@ -18,6 +19,7 @@ from utils.mixin_utils import LoginRequiredMixin
 from operation.models import UserCourse, UserFavorite, UserMessage
 from organization.models import CourseOrg, Teacher
 from courses.models import Course
+from .models import Banner
 
 # Create your views here.
 
@@ -45,13 +47,21 @@ class LoginView(View):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return render(request,"index.html")
+                    return HttpResponseRedirect(reverse("index"))
                 else:
                     return render(request, "login.html", {"msg": "用户未激活","user_name":user_name})
             else:
                 return render(request, "login.html",{"msg":"账户或密码错误","user_name":user_name})
         else:
             return render(request, "login.html",{"login_form":login_form})
+
+
+# 用户登出
+class LogoutView(View):
+    def get(self,request):
+        logout(request)
+        return HttpResponseRedirect(reverse("index"))
+
 
 
 # 邮箱注册
@@ -327,4 +337,20 @@ class MyMessageView(LoginRequiredMixin,View):
 
         return render(request, 'usercenter-message.html',{
             "messages": messages,
+        })
+
+
+# 首页
+class IndexView(View):
+    def get(self,request):
+        # 取出轮播图
+        all_banners = Banner.objects.all().order_by('index')
+        courses = Course.objects.filter(is_banner=False)[:6]
+        banner_courses = Course.objects.filter(is_banner=True).order_by('-add_time')[:3]
+        course_orgs = CourseOrg.objects.all()[:15]
+        return render(request, 'index.html', {
+            "all_banners": all_banners,
+            "courses": courses,
+            "banner_courses": banner_courses,
+            "course_orgs": course_orgs
         })

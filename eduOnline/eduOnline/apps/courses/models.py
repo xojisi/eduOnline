@@ -22,8 +22,9 @@ class Course(models.Model):
     category = models.CharField(verbose_name=u"课程类别", max_length=20 ,default=u"后端开发")
     tag = models.CharField(default='', verbose_name=u"课程标签", max_length=10)
     teacher = models.ForeignKey(Teacher, verbose_name=u"讲师", null=True, blank=True)
-    you_need_know = models.CharField(max_length=300, verbose_name=u"课程描述", default='')
+    you_need_know = models.CharField(max_length=300, verbose_name=u"你需要知道", default='')
     teacher_tell = models.CharField(max_length=300, verbose_name=u"老师告诉你", default='')
+    is_banner = models.BooleanField(default=False, verbose_name=u"是否轮播")
 
     class Meta:
         verbose_name = u"课程"
