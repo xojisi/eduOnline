@@ -23,7 +23,7 @@ import xadmin
 
 from users.views import LoginView, LogoutView, RegisterView, ActiveUserView
 from users.views import ForgetPWdView, ResetView, ModifyPwdView, IndexView
-from .settings import MEDIA_ROOT
+from .settings import MEDIA_ROOT, STATIC_ROOT
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
@@ -46,8 +46,14 @@ urlpatterns = [
     # 配置上传文件的访问处理函数
     url(r'^media/(?P<path>.*)$', serve, {"document_root":MEDIA_ROOT}),
 
+    #  配置上传文件的访问处理函数
+    url(r'^static/(?P<path>.*)$', serve, {"document_root":STATIC_ROOT}),
+
     # 课程相关URL配置
     url(r'^users/', include('users.urls', namespace="users")),
 
 
 ]
+# 全局404页面配置
+handler404 = 'users.views.page_not_found'
+handler500 = 'users.views.page_error'
