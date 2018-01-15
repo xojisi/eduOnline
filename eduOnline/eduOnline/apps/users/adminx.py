@@ -9,6 +9,7 @@ from .models import EmailVerifyRecord,Banner,UserProfile
 from courses.models import Course,Lesson,Video,CourseResource
 from organization.models import CityDict,CourseOrg,Teacher
 from operation.models import UserAsk,CourseComments,UserFavorite,UserMessage,UserCourse
+
 from django.contrib.auth.models import Permission,Group
 
 
@@ -51,6 +52,7 @@ class GlobalSettings(object):
             )},
         )
 
+
 class EmailVerifyRecordAdmin(object):
     list_display = ['email','code','send_type','send_time']
     search_fields = ['email','code']
@@ -60,6 +62,8 @@ class BannerAdmin(object):
     list_display = ['title','image','url','index','add_time']
     search_fields = ['title','image','url','index']
     list_filter = ['title','image','url','index','add_time']
+
+
 
 xadmin.site.register(EmailVerifyRecord,EmailVerifyRecordAdmin)
 xadmin.site.register(Banner,BannerAdmin)

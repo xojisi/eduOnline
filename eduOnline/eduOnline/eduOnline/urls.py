@@ -16,14 +16,12 @@ Including another URLconf
     3. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import url,include
-from django.contrib import admin
-from django.views.generic import TemplateView
 from django.views.static import serve
 import xadmin
 
 from users.views import LoginView, LogoutView, RegisterView, ActiveUserView
 from users.views import ForgetPWdView, ResetView, ModifyPwdView, IndexView
-from .settings import MEDIA_ROOT, STATIC_ROOT
+from .settings import MEDIA_ROOT  # STATIC_ROOT
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
@@ -46,8 +44,8 @@ urlpatterns = [
     # 配置上传文件的访问处理函数
     url(r'^media/(?P<path>.*)$', serve, {"document_root":MEDIA_ROOT}),
 
-    #  配置上传文件的访问处理函数
-    url(r'^static/(?P<path>.*)$', serve, {"document_root":STATIC_ROOT}),
+    #  Debug为False 时，找不到static的处理
+    # url(r'^static/(?P<path>.*)$', serve, {"document_root":STATIC_ROOT}),
 
     # 课程相关URL配置
     url(r'^users/', include('users.urls', namespace="users")),

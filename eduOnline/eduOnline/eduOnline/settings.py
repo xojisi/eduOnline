@@ -27,9 +27,9 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'eduOnline'))
 SECRET_KEY = 'pn-snhzy=v%!w1v%ly)79)f=*&^!#=_+x@)5w2n*(2ers_3ing'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -158,7 +158,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-STATIC_ROOT= os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT= os.path.join(BASE_DIR, 'static')
 
 # 邮箱服务器
 EMAIL_HOST = "smtp.sina.com"
