@@ -27,28 +27,27 @@ class GlobalSettings(object):
     def get_site_menu(self):
         return (
             {'title': '用户关系', 'menus': (
-                {'title': '用户信息', 'url': self.get_model_url(UserProfile, 'changelist')},
-                {'title': '组', 'url': self.get_model_url(Group, 'changelist')},
-                {'title': '权限', 'url': self.get_model_url(Permission, 'changelist')},
+                {'title': '用户信息', 'url': self.get_model_url(UserProfile, 'changelist'), 'perm': self.get_model_perm(UserProfile,'change')},
+                {'title': '组', 'url': self.get_model_url(Group, 'changelist'), 'perm': self.get_model_perm(Group,'change')},
+                {'title': '权限', 'url': self.get_model_url(Permission, 'changelist'), 'perm': self.get_model_perm(Permission,'change')},
             )},
             {'title': '课程管理', 'menus': (
-                {'title': '课程', 'url': self.get_model_url(Course, 'changelist')},
-                {'title': '章节', 'url': self.get_model_url(Lesson, 'changelist')},
-                {'title': '视频', 'url': self.get_model_url(Video, 'changelist')},
-                {'title': '课件', 'url': self.get_model_url(CourseResource, 'changelist')},
+                {'title': '课程', 'url': self.get_model_url(Course, 'changelist'), 'perm': self.get_model_perm(Course,'change')},
+                {'title': '章节', 'url': self.get_model_url(Lesson, 'changelist'), 'perm': self.get_model_perm(Lesson,'change')},
+                {'title': '视频', 'url': self.get_model_url(Video, 'changelist'), 'perm': self.get_model_perm(Video,'change')},
+                {'title': '课件', 'url': self.get_model_url(CourseResource, 'changelist'), 'perm': self.get_model_perm(CourseResource,'change')},
             )},
             {'title': '机构管理', 'menus': (
-                {'title': '城市', 'url': self.get_model_url(CityDict, 'changelist')},
-                {'title': '机构', 'url': self.get_model_url(CourseOrg, 'changelist')},
-                {'title': '教师', 'url': self.get_model_url(Teacher, 'changelist')},
+                {'title': '城市', 'url': self.get_model_url(CityDict, 'changelist'), 'perm': self.get_model_perm(CityDict,'change')},
+                {'title': '机构', 'url': self.get_model_url(CourseOrg, 'changelist'), 'perm': self.get_model_perm(CourseOrg,'change')},
+                {'title': '教师', 'url': self.get_model_url(Teacher, 'changelist'), 'perm': self.get_model_perm(Teacher,'change')},
             )},
             {'title': '用户操作', 'menus': (
-                {'title': '用户咨询', 'url': self.get_model_url(UserAsk, 'changelist')},
-                {'title': '用户课程', 'url': self.get_model_url(UserCourse, 'changelist')},
-                {'title': '用户消息', 'url': self.get_model_url(UserMessage, 'changelist')},
-                {'title': '课程评论', 'url': self.get_model_url(CourseComments, 'changelist')},
-                {'title': '用户收藏', 'url': self.get_model_url(UserFavorite, 'changelist')},
-
+                {'title': '用户咨询', 'url': self.get_model_url(UserAsk, 'changelist'), 'perm': self.get_model_perm(UserAsk,'change')},
+                {'title': '用户课程', 'url': self.get_model_url(UserCourse, 'changelist'), 'perm': self.get_model_perm(UserCourse,'change')},
+                {'title': '用户消息', 'url': self.get_model_url(UserMessage, 'changelist'), 'perm': self.get_model_perm(UserMessage,'change')},
+                {'title': '课程评论', 'url': self.get_model_url(CourseComments, 'changelist'), 'perm': self.get_model_perm(CourseComments,'change')},
+                {'title': '用户收藏', 'url': self.get_model_url(UserFavorite, 'changelist'), 'perm': self.get_model_perm(UserFavorite,'change')},
             )},
         )
 
@@ -57,6 +56,7 @@ class EmailVerifyRecordAdmin(object):
     list_display = ['email','code','send_type','send_time']
     search_fields = ['email','code']
     list_filter = ['email','code','send_type','send_time']
+    model_icon = 'fa fa-tags'
 
 class BannerAdmin(object):
     list_display = ['title','image','url','index','add_time']

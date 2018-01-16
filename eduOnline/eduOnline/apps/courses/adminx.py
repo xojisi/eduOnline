@@ -10,6 +10,9 @@ class CourseAdmin(object):
     list_display = ['name','desc','degree','learn_times','students','teacher']
     search_fields = ['name','desc','degree','students']
     list_filter = ['name','desc','degree','learn_times','students','teacher__name']
+    ordering = ['-click_nums']
+    readonly_fields = ['click_nums']
+    exclude = ['fav_nums']
 
 class LessonAdmin(object):
     list_display = ['course','name','add_time']
