@@ -21,9 +21,10 @@ class TeacherAdmin(object):
     list_display = ['org', 'name', 'work_years','work_company']
     search_fields = ['org__name','name', 'work_years','work_company']
     list_filter = ['org__name', 'name', 'work_years','work_company']
+    relfield_style = 'fk-ajax'
 
 
-xadmin.site.register(CourseOrg,CourseOrgAdmin)
-xadmin.site.register(CityDict,CityDictAdmin)
-xadmin.site.register(Teacher,TeacherAdmin)
+xadmin.site.register(CourseOrg, CourseOrgAdmin)
+xadmin.site.register(CityDict, CityDictAdmin)
+xadmin.site.register(Teacher, TeacherAdmin)
 

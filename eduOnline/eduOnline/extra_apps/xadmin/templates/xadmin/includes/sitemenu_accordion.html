@@ -12,8 +12,8 @@
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#nav-accordion" href="#nav-panel-{{forloop.counter}}">
           {% if item.url %}<a href="{{ item.url }}" class="section">{% endif %}
           {% if item.icon %}<i class="fa-fw {{item.icon}}"></i>
-          {% elif item.first_icon %}<i class="fa-fw {{item.first_icon}}"></i>
-          {%else%}<i class="fa-fw fa fa-circle-o"></i>{% endif %}
+          {% elif item.first_icon %} <i class="fa-fw {{item.first_icon}}"></i>
+          {% else %}<i class="fa-fw fa fa-circle-o"></i>{% endif %}
           {% trans item.title %}
           {% if item.url %}</a>{% endif %}
         </a>
