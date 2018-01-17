@@ -31,7 +31,8 @@ class GlobalSettings(object):
              'menus': (
                 {'title': '用户信息',
                  'url': self.get_model_url(UserProfile, 'changelist'),
-                 'perm': self.get_model_perm(UserProfile, 'change')
+                 'perm': self.get_model_perm(UserProfile, 'change'),
+                 'icon': 'fa fa-user-circle-o'
                  },
 
                 {'title': '组',
@@ -42,74 +43,91 @@ class GlobalSettings(object):
 
                 {'title': '权限',
                  'url': self.get_model_url(Permission, 'changelist'),
-                 'perm': self.get_model_perm(Permission, 'change')
+                 'perm': self.get_model_perm(Permission, 'change'),
+                 'icon': 'fa fa-check-square'
                  },
             )},
 
             {'title': '课程管理',
+             'icon': 'fa fa-mortar-board',
              'menus': (
                 {'title': '课程',
                  'url': self.get_model_url(Course, 'changelist'),
-                 'perm': self.get_model_perm(Course, 'change')
+                 'perm': self.get_model_perm(Course, 'change'),
+                 'icon':'fa fa-book'
                  },
 
                 {'title': '章节',
                  'url': self.get_model_url(Lesson, 'changelist'),
-                 'perm': self.get_model_perm(Lesson, 'change')
+                 'perm': self.get_model_perm(Lesson, 'change'),
+                 'icon': 'fa fa-align-justify'
                  },
 
                 {'title': '视频', 'url': self.get_model_url(Video, 'changelist'),
-                 'perm': self.get_model_perm(Video, 'change')
+                 'perm': self.get_model_perm(Video, 'change'),
+                 'icon': 'fa fa-toggle-right'
                  },
 
                 {'title': '课件', 'url': self.get_model_url(CourseResource, 'changelist'),
-                 'perm': self.get_model_perm(CourseResource, 'change')
+                 'perm': self.get_model_perm(CourseResource, 'change'),
+                 'icon': 'fa fa-file'
                  },
             )},
 
             {'title': '机构管理',
+             'icon': 'fa fa-building',
              'menus': (
                 {'title': '城市',
                  'url': self.get_model_url(CityDict, 'changelist'),
-                 'perm': self.get_model_perm(CityDict, 'change')
+                 'perm': self.get_model_perm(CityDict, 'change'),
+                 'icon': 'fa fa-building'
                  },
 
                 {'title': '机构',
                  'url': self.get_model_url(CourseOrg, 'changelist'),
-                 'perm': self.get_model_perm(CourseOrg, 'change')
+                 'perm': self.get_model_perm(CourseOrg, 'change'),
+                 'icon': 'fa fa-bank'
                  },
 
                 {'title': '教师',
                  'url': self.get_model_url(Teacher, 'changelist'),
-                 'perm': self.get_model_perm(Teacher, 'change')
+                 'perm': self.get_model_perm(Teacher, 'change'),
+                 'icon': 'fa fa-graduation-cap'
+
                  },
             )},
 
             {'title': '用户操作',
+             'icon': 'fa fa-cog',
              'menus': (
                 {'title': '用户咨询',
                  'url': self.get_model_url(UserAsk, 'changelist'),
-                 'perm': self.get_model_perm(UserAsk, 'change')
+                 'perm': self.get_model_perm(UserAsk, 'change'),
+                 'icon': 'fa fa-comments'
                  },
 
                 {'title': '用户课程',
                  'url': self.get_model_url(UserCourse, 'changelist'),
-                 'perm': self.get_model_perm(UserCourse, 'change')
+                 'perm': self.get_model_perm(UserCourse, 'change'),
+                 'icon':'fa fa-book'
                  },
 
                 {'title': '用户消息',
                  'url': self.get_model_url(UserMessage, 'changelist'),
-                 'perm': self.get_model_perm(UserMessage, 'change')
+                 'perm': self.get_model_perm(UserMessage, 'change'),
+                 'icon': 'fa fa-commenting'
                  },
 
                 {'title': '课程评论',
                  'url': self.get_model_url(CourseComments, 'changelist'),
-                 'perm': self.get_model_perm(CourseComments, 'change')
+                 'perm': self.get_model_perm(CourseComments, 'change'),
+                 'icon': 'fa fa-envelope-o'
                  },
 
                 {'title': '用户收藏',
                  'url': self.get_model_url(UserFavorite, 'changelist'),
-                 'perm': self.get_model_perm(UserFavorite, 'change')
+                 'perm': self.get_model_perm(UserFavorite, 'change'),
+                 'icon': 'fa fa-star'
                  },
             )},
         )
@@ -125,6 +143,7 @@ class BannerAdmin(object):
     list_display = ['title','image','url','index','add_time']
     search_fields = ['title','image','url','index']
     list_filter = ['title','image','url','index','add_time']
+    model_icon = 'fa fa-file-image-o'
 
 
 

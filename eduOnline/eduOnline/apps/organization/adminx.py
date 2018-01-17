@@ -6,11 +6,13 @@ import xadmin
 
 from .models import CourseOrg,CityDict,Teacher
 
+
 class CourseOrgAdmin(object):
     list_display = ['name','click_num','fav_num','city']
     search_fields = ['name','desc','click_num','fav_num']
     list_filter = ['name','click_num','fav_num','city__name']
     relfield_style = 'fk-ajax'
+
 
 class CityDictAdmin(object):
     list_display = ['name', 'desc']

@@ -6,6 +6,11 @@ import xadmin
 
 from .models import Course,Lesson,Video,CourseResource
 
+class LessonInline(object):
+    model = Lesson
+    extra = 0
+
+
 class CourseAdmin(object):
     list_display = ['name','desc','degree','learn_times','students','teacher']
     search_fields = ['name','desc','degree','students']
@@ -14,6 +19,7 @@ class CourseAdmin(object):
     readonly_fields = ['click_nums']
     exclude = ['fav_nums']
     relfield_style = 'fk-ajax'  # 本身无意义,但LessonAdmin加了,这里不加,LessonAdmin的这句话就不起作用.
+    inlines = [LessonInline]
 
 
 
