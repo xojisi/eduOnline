@@ -83,7 +83,7 @@ class OrgHomeView(View):
         course_org = CourseOrg.objects.get(id=int(org_id))
 
         # 点击量加1
-        course_org.click_nums += 1
+        course_org.click_num += 1
         course_org.save()
 
         all_courses = course_org.course_set.all()[:3]

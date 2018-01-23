@@ -59,7 +59,8 @@ INSTALLED_APPS = [
     'xadmin',
     'crispy_forms',
     'captcha',
-    'pure_pagination'
+    'pure_pagination',
+    'DjangoUeditor'
 ]
 
 AUTH_USER_MODEL = "users.UserProfile"
@@ -161,12 +162,12 @@ STATICFILES_DIRS = (
 # STATIC_ROOT= os.path.join(BASE_DIR, 'static')
 
 # 邮箱服务器
-EMAIL_HOST = "smtp.sina.com"
+EMAIL_HOST = ""
 EMAIL_PORT = 25
-EMAIL_HOST_USER = 'xojisi@sina.com'
-EMAIL_HOST_PASSWORD = 'luanwushuiyue'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = False
-EMAIL_FROM = 'xojisi@sina.com'
+EMAIL_FROM = ''
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT= os.path.join(BASE_DIR, 'media')

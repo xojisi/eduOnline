@@ -57,3 +57,4 @@ class Banner(models.Model):
 
     def __unicode__(self):
         return '轮播图'
+

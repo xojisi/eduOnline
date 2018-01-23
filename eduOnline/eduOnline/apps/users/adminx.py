@@ -6,7 +6,7 @@ import xadmin
 from xadmin import views
 
 from .models import EmailVerifyRecord,Banner,UserProfile
-from courses.models import Course,Lesson,Video,CourseResource
+from courses.models import Course,Lesson,Video,CourseResource, BannnerCourse
 from organization.models import CityDict,CourseOrg,Teacher
 from operation.models import UserAsk,CourseComments,UserFavorite,UserMessage,UserCourse
 
@@ -57,6 +57,11 @@ class GlobalSettings(object):
                  'icon':'fa fa-book'
                  },
 
+                {'title': '轮播课程', 'url': self.get_model_url(BannnerCourse, 'changelist'),
+                 'perm': self.get_model_perm(BannnerCourse, 'change'),
+                 'icon': 'fa fa-picture-o'
+                 },
+
                 {'title': '章节',
                  'url': self.get_model_url(Lesson, 'changelist'),
                  'perm': self.get_model_perm(Lesson, 'change'),
@@ -72,6 +77,7 @@ class GlobalSettings(object):
                  'perm': self.get_model_perm(CourseResource, 'change'),
                  'icon': 'fa fa-file'
                  },
+
             )},
 
             {'title': '机构管理',
@@ -136,7 +142,7 @@ class GlobalSettings(object):
 class EmailVerifyRecordAdmin(object):
     list_display = ['email','code','send_type','send_time']
     search_fields = ['email','code']
-    list_filter = ['email','code','send_type','send_time']
+    list_filter = ['email','code','send_type']
     model_icon = 'fa fa-tags'
 
 class BannerAdmin(object):
@@ -144,7 +150,6 @@ class BannerAdmin(object):
     search_fields = ['title','image','url','index']
     list_filter = ['title','image','url','index','add_time']
     model_icon = 'fa fa-file-image-o'
-
 
 
 xadmin.site.register(EmailVerifyRecord,EmailVerifyRecordAdmin)
