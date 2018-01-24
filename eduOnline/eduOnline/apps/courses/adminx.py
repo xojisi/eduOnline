@@ -27,6 +27,8 @@ class CourseAdmin(object):
     relfield_style = 'fk-ajax'  # 本身无意义,但LessonAdmin加了,这里不加,LessonAdmin的这行就不起作用.
     inlines = [LessonInline, CourseResourceInline]  # 一个表链接另一个表
     # refresh_times = [5,10] # 刷新频率
+    style_fields = {"detail": "ueditor"}   # 设置样式
+    import_excel = True   # excel导入功能加载
 
     def queryset(self):
         qs = super(CourseAdmin, self).queryset()
@@ -41,6 +43,12 @@ class CourseAdmin(object):
                 course_org = obj.course_org
                 course_org.course_nums = Course.objects.filter(course_org=course_org).count()
                 course_org.save()
+
+    def post(self, request, *args, **kwargs):
+        if 'excel' in request.FILES:
+            pass
+        return super(CourseAdmin, self).post(request, args, kwargs)
+
 
 class BannerCourseAdmin(object):
     list_display = ['name','desc','degree','learn_times','students','teacher']

@@ -170,7 +170,7 @@ EMAIL_USE_TLS = False
 EMAIL_FROM = ''
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT= os.path.join(BASE_DIR, 'media').replace('\\','/')
 
 
 PAGINATION_SETTINGS = {
@@ -178,4 +178,16 @@ PAGINATION_SETTINGS = {
     'MARGIN_PAGES_DISPLAYED': 2,
 
     'SHOW_FIRST_PAGE_WHEN_INVALID': True,
+}
+
+
+UEDITOR_SETTING={
+    "config":{
+        "toolbars":[["source","undo","redo","bold","italic","underline","forecolor","backcolor",
+                     "superscript","subscript","justifyleft","justifycenter","justifyright","insertorderedlist",
+                     "insertunorderelist","blockquote","formatmatch","removeformat","autotypeset","inserttable",
+                     "pasteplain","wordimage","searchreplace","map","preview","fullscreen"],
+                    ["insertcode","paragraph","fontfamily","fontsize","link","unlink","simpleupload","insertvideo",
+                     "attachment","emotion","date","time"]]
+    },
 }
