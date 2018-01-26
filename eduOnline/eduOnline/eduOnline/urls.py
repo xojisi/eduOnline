@@ -17,6 +17,7 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.views.static import serve
+# from django.contrib import admin
 import xadmin
 
 from users.views import LoginView, LogoutView, RegisterView, ActiveUserView
@@ -25,6 +26,7 @@ from .settings import MEDIA_ROOT  # STATIC_ROOT
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
+    # url(r'^admin/', admin.site.urls),
     url('^$', IndexView.as_view(), name="index"),
     url('^login/$', LoginView.as_view() , name="login"),
     url('^logout/$', LogoutView.as_view(), name="logout"),

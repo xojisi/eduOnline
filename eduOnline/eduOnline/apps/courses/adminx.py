@@ -5,7 +5,6 @@ __date__ = '2017/12/17 18:41'
 import xadmin
 
 from .models import Course, Lesson, Video, CourseResource, BannnerCourse
-from organization.models import CourseOrg
 
 class LessonInline(object):
     model = Lesson
@@ -35,7 +34,7 @@ class CourseAdmin(object):
         qs = qs.filter(is_banner=False)
         return qs
 
-    # 保存课程的时候统计课程机构的课程书
+    # 保存课程的时候统计课程机构的课程数
     def save_models(self):
         obj = self.new_obj
         obj.save()

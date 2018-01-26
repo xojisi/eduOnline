@@ -11,6 +11,7 @@ from organization.models import CityDict,CourseOrg,Teacher
 from operation.models import UserAsk,CourseComments,UserFavorite,UserMessage,UserCourse
 
 from django.contrib.auth.models import Permission,Group
+from xadmin.models import Log
 
 
 # XAdmin 全局配置
@@ -136,6 +137,28 @@ class GlobalSettings(object):
                  'icon': 'fa fa-star'
                  },
             )},
+
+            {'title': '其他管理',
+             'icon': 'fa fa-ellipsis-h',
+             'menus': (
+                 {'title': '邮箱验证码',
+                  'url': self.get_model_url(EmailVerifyRecord, 'changelist'),
+                  'perm': self.get_model_perm(EmailVerifyRecord, 'change'),
+                  'icon': 'fa fa-envelope-open'
+                  },
+
+                 {'title': '轮播图',
+                  'url': self.get_model_url(Banner, 'changelist'),
+                  'perm': self.get_model_perm(Banner, 'change'),
+                  'icon': 'fa fa-file-image-o'
+                  },
+
+                 {'title': '操作日志',
+                  'url': self.get_model_url(Log, 'changelist'),
+                  'perm': self.get_model_perm(Log, 'change'),
+                  'icon': 'fa fa-file-text-o'
+                  },
+             )},
         )
 
 

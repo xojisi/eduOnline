@@ -4,6 +4,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/eduOnline/apps" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/eduOnline/extra_apps" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/eduOnline/customfilefield" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="Python 2.7 (eduOnline)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 """
 Form Widget classes specific to the Django admin site.
 """
@@ -168,10 +169,19 @@ class AdminSelectMultiple(forms.SelectMultiple):
 
 
 class AdminFileWidget(forms.ClearableFileInput):
-    template_with_initial = (u'<p class="file-upload">%s</p>'
-                             % forms.ClearableFileInput.initial_text)
-    template_with_clear = (u'<span class="clearable-file-input">%s</span>'
-                           % forms.ClearableFileInput.clear_checkbox_label)
+
+    # 源代码,有BUG,上传文件后无法修改.
+    # template_with_initial = (u'<p class="file-upload">%s</p>'
+    #                          % forms.ClearableFileInput.initial_text)
+    # template_with_clear = (u'<span class="clearable-file-input">%s</span>'
+    #                        % forms.ClearableFileInput.clear_checkbox_label)
+
+    template_with_initial = (
+        '%(initial_text)s: <a href="%(initial_url)s">%(initial)s</a> '
+        '%(clear_template)s<br />%(input_text)s: %(input)s'
+    )
+
+    template_with_clear = '%(clear)s <label for="%(clear_checkbox_id)s">%(clear_checkbox_label)s</label>'
 
 
 class AdminTextareaWidget(forms.Textarea):
