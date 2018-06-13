@@ -22,7 +22,7 @@ import xadmin
 
 from users.views import LoginView, LogoutView, RegisterView, ActiveUserView
 from users.views import ForgetPWdView, ResetView, ModifyPwdView, IndexView
-from .settings import MEDIA_ROOT  # STATIC_ROOT
+from .settings import MEDIA_ROOT  
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),

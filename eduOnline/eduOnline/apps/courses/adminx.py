@@ -1,6 +1,5 @@
 # -*- coding:utf-8 -*-
 __author__ = 'xojisi'
-__date__ = '2017/12/17 18:41'
 
 import xadmin
 

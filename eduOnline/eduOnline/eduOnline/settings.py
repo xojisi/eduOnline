@@ -92,8 +92,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                # 给所有的html页面传sittings.py里面的MEDIA_URL
-                'django.core.context_processors.media',
+                # 给所有的html页面传sittings.py里面的MEDIA_URL  使用django 1.9
+                # 'django.core.context_processors.media',
+                'django.template.context_processors.media',
             ],
         },
     },

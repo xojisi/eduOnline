@@ -51,7 +51,7 @@ class Course(models.Model):
     def get_course_lesson(self):
         return self.lesson_set.all()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 class Lesson(models.Model):
@@ -67,7 +67,7 @@ class Lesson(models.Model):
     def get_lesson_video(self):
         return self.video_set.all()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -82,7 +82,7 @@ class Video(models.Model):
         verbose_name = u"视频"
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -96,7 +96,7 @@ class CourseResource(models.Model):
         verbose_name = u"课程资源"
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 class BannnerCourse(Course):

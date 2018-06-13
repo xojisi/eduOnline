@@ -26,7 +26,7 @@ class UserProfile(AbstractUser):
         from operation.models import UserMessage
         return UserMessage.objects.filter(user=self.id, has_read=False).count()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.username
 
 class EmailVerifyRecord(models.Model):
@@ -40,7 +40,7 @@ class EmailVerifyRecord(models.Model):
         verbose_name = u"邮箱验证码"
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):
+    def __str__(self):
         return '{0}({1})'.format(self.code,self.email)
 
 
@@ -55,6 +55,6 @@ class Banner(models.Model):
         verbose_name = u"轮播图"
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):
+    def __str__(self):
         return '轮播图'
 

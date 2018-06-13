@@ -1,6 +1,5 @@
 # -*- coding:utf-8 -*-
 __author__ = 'xojisi'
-__date__ = '2018/1/24 9:58'
 
 
 import xadmin
@@ -16,7 +15,8 @@ class ListImportExcelPlugin(BaseAdminPlugin):
         return bool(self.import_excel)
 
     def block_top_toolbar(self, context, nodes):
-        nodes.append(loader.render_to_string('xadmin/excel/model_list.top_toolbar.import.html', context_instance=context))
+        # nodes.append(loader.render_to_string('xadmin/excel/model_list.top_toolbar.import.html', context_instance=context))
+        nodes.append(loader.render_to_string('xadmin/excel/model_list.top_toolbar.import.html', locals()))
 
 
 xadmin.site.register_plugin(ListImportExcelPlugin, ListAdminView)

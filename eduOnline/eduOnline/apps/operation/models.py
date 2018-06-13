@@ -58,7 +58,7 @@ class UserMessage(models.Model):
         verbose_name = u"用户消息"
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):
+    def __str__(self):
         return u'用户消息'
 
 

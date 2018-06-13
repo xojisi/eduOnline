@@ -64,7 +64,6 @@ class OrgView(View):
             "sort": sort
         })
 
-
 class AddUserAskView(View):
     # 用户添加咨询
     def post(self,request):
@@ -74,7 +73,6 @@ class AddUserAskView(View):
             return HttpResponse('{"status":"success"}', content_type='application/json')
         else:
             return HttpResponse('{"status":"fail","msg":"添加出错"}', content_type="application/json")
-
 
 #机构首页
 class OrgHomeView(View):

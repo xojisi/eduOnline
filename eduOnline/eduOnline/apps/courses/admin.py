@@ -1,13 +1,13 @@
 from django.contrib import admin
-# from models import CourseResource
+# from .models import Course
 # Register your models here.
 
 
 
-# class CourseResourceAdmin(admin.ModelAdmin):
-#     list_display = ['course','name']
-#     search_fields = ['course__name','name']
-#     list_filter = ['course__name','name']
+# class CourseAdmin(admin.ModelAdmin):
+#     list_display = ['name', 'desc', 'degree', 'learn_times', 'students', 'teacher', 'get_zj_nums', 'go_to']
+#     search_fields = ['name', 'desc', 'degree', 'students']
+#     list_filter = ['name', 'desc', 'degree', 'learn_times', 'students', 'teacher__name']
 #
 #
-# admin.site.register(CourseResource, CourseResourceAdmin)
+# admin.site.register(Course, CourseAdmin)

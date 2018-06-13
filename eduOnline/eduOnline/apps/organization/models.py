@@ -14,7 +14,7 @@ class CityDict(models.Model):
         verbose_name = u"城市"
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 class CourseOrg(models.Model):
@@ -39,7 +39,7 @@ class CourseOrg(models.Model):
     def get_teacher_nums(self):
         return self.teacher_set.all().count()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 class Teacher(models.Model):
@@ -62,6 +62,6 @@ class Teacher(models.Model):
     def get_course_nums(self):
         return self.course_set.all().count()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
